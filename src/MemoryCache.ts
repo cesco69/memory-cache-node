@@ -14,6 +14,9 @@ export default class MemoryCache<K, V> {
     private readonly maxItemCount: number
   ) {
     this.timer = setInterval(this.deleteExpiredItems, itemsExpirationCheckIntervalInSecs * 1000);
+    if( this.timer.unref ){
+      this.timer.unref();
+    }
   }
 
   storePermanentItem(key: K, value: V): void {
